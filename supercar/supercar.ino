@@ -116,4 +116,3 @@ void motorR2speedcontrol(double s)
     motorright2.setSpeed(-s*250);
   }
 }
-
