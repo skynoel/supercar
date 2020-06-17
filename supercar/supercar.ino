@@ -16,7 +16,7 @@ void setup() {
     myservo1.attach(10);  
     Serial.begin(9600);
     Serial.println();
-    IBus.begin(Serial);
+    IBus.begin(Serial2);
     motorleft1.run(RELEASE);
     motorleft2.run(RELEASE);
     motorright1.run(RELEASE);
@@ -40,8 +40,15 @@ void loop() {
       x=(float)map(data[3],1000,2000,1000,-1000)/1000;
       a=(float)map(data[0],1000,2000,-1000,1000)/1000;
     }
-    a1=map(data[6],1000,2000,90,0);
-    a2=map(data[7],1000,2000,160,90);
+    a1=map(data[6],1000,2000,0,160);
+    if(data[9]==2000)
+    {
+      a2=160;
+    }
+    else
+    {
+      a2=0;
+    }
     myservo.write(a1);
     myservo1.write(a2);
     Serial.print(y);
@@ -50,6 +57,10 @@ void loop() {
     Serial.print(" ");
     Serial.print(a);
     Serial.print(" ");
+    Serial.print(a1);
+    Serial.print(" ");
+    Serial.print(a2);
+    Serial.print(" ");                            
     Serial.println();
     V1 = y - x + a;
     V2 = y + x - a;
